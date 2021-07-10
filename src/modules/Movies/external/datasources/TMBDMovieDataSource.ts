@@ -1,0 +1,70 @@
+import { AxiosInstance } from "axios";
+import { Movie } from "../../domain/entities/Movie";
+import { IMoviesDataSource } from "../../infra/datasources/IMoviesDataSource";
+import { TMDBMovieResult } from "../types/TMDBMovieResult";
+
+class TMDBMoviesDataSource implements IMoviesDataSource {  
+  constructor(
+    private httpService: AxiosInstance
+  ) {}
+
+  api_key = "696d88d8009e5f9ec856621163017e4a";
+  
+  async getByTitle(title: string, page: number): Promise<Movie[]> {
+    const response = await this.httpService.get("/search/movie", {
+      params: {
+        api_key: this.api_key,
+        query: title,
+        page,
+        language: "en-US",
+        include_adult: "false"
+      }
+    });
+
+    if (response.status === 404) {
+      throw new Error("There are no movies with this title");
+    }
+
+    const moviesResult: TMDBMovieResult[] = response.data.results;
+
+    const movies = moviesResult.map(result => new Movie({
+        id: result.id.toString(),
+        title: result.title,
+        overview: result.overview,
+        poster_path: result.poster_path,
+        release_date: new Date(result.release_date),
+        vote_average: result.vote_average,
+      })
+    );
+
+    return movies;
+  }
+
+  async getById(id: string): Promise<Movie> {
+    const response = await this.httpService.get(`/movie/${id}`, {
+      params: {
+        api_key: this.api_key,
+        language: "en-US",
+      }
+    });
+
+    if (response.status === 404) {
+      throw new Error("There are no movies with this title");
+    }
+
+    const { result } = response.data;
+
+    const movie = new Movie({
+      id: result.id.toString(),
+      title: result.title,
+      overview: result.overview,
+      poster_path: result.poster_path,
+      release_date: new Date(result.release_date),
+      vote_average: result.vote_average,
+    });
+
+    return movie;
+  }
+}
+
+export { TMDBMoviesDataSource }

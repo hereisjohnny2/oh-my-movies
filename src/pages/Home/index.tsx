@@ -1,43 +1,18 @@
 import { FormEvent, useState } from "react";
 import { MovieCard } from "../../components/MovieCard";
-import { getMovieByTitle } from "../../services/TMDBServices";
-
-interface movieSearchType {
-  title: string;
-  poster_path?: string;
-  release_year: string;
-  adult: boolean;
-  overview: string;
-  release_date: string;
-  genre_ids: number[];
-  id: number;
-  original_title: string;
-  original_language: string;
-  backdrop_path: string | undefined;
-  popularity: number;
-  vote_count: number;
-  video: boolean;
-  vote_average: number;
-}
+import { Movie } from "../../modules/Movies/domain/entities/Movie";
+import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/searchMovieByTitle";
 
 export function Home() {
-  const [movieSearchList, setMovieSearchList] = useState<movieSearchType[]>([]);
+  const [movieSearchList, setMovieSearchList] = useState<Movie[]>([]);
   const [titleInput, setTitleInput] = useState("");
 
   async function handleSearchByTitle(event: FormEvent) {
     event.preventDefault();
 
-    if (titleInput.trim() === '') {
-      throw new Error("It's not possible to search for an empty string!");
-    }
-
-    const response = await getMovieByTitle(titleInput);
-
-    if (response.status === 404) {
-      throw new Error("It's not to find the query!");
-    }
-    const results: Array<movieSearchType> = response.data.results;
-    setMovieSearchList(results);
+    const movies = await searchMovieByTitleUseCase.execute(titleInput);
+    
+    setMovieSearchList(movies);
   }
 
   return(
@@ -65,7 +40,7 @@ export function Home() {
           <p>Use the SearchBox to find what to watch next!</p> : 
           movieSearchList.map(result => <MovieCard
             title={result.title}
-            release_year={result.release_date}
+            release_year={result.release_date.getFullYear().toString()}
             isFavorite={false}
             poster_path={result.poster_path}
           />)
