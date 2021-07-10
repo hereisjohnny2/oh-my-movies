@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import { Movie } from "../../domain/entities/Movie";
 import { IMoviesDataSource } from "../../infra/datasources/IMoviesDataSource";
 import { TMDBMovieResult } from "../types/TMDBMovieResult";
+import NoPosterImg from "../../../../assets/no-poster.png";
 
 class TMDBMoviesDataSource implements IMoviesDataSource {  
   constructor(
@@ -23,15 +24,17 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
 
     if (response.status === 404) {
       throw new Error("There are no movies with this title");
-    }
-
+    }    
+  
     const moviesResult: TMDBMovieResult[] = response.data.results;
-
+  
     const movies = moviesResult.map(result => new Movie({
         id: result.id.toString(),
         title: result.title,
         overview: result.overview,
-        poster_path: result.poster_path,
+        poster_path: result.poster_path ?
+          `https://image.tmdb.org/t/p/w500${result.poster_path}`:
+          NoPosterImg,
         release_date: new Date(result.release_date),
         vote_average: result.vote_average,
       })
@@ -51,16 +54,18 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
     if (response.status === 404) {
       throw new Error("There are no movies with this title");
     }
-
-    const { result } = response.data;
+    
+    const { data } = response;
 
     const movie = new Movie({
-      id: result.id.toString(),
-      title: result.title,
-      overview: result.overview,
-      poster_path: result.poster_path,
-      release_date: new Date(result.release_date),
-      vote_average: result.vote_average,
+      id: data.id.toString(),
+      title: data.title,
+      overview: data.overview,
+      poster_path: data.poster_path ?
+        `https://image.tmdb.org/t/p/w500${data.poster_path}`:
+        NoPosterImg,
+      release_date: new Date(data.release_date),
+      vote_average: data.vote_average,
     });
 
     return movie;

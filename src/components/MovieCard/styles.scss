@@ -1,0 +1,47 @@
+.movie-card {
+  background: #6f993b;
+  padding: 14px 18px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  transition: transform 200ms;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  .info {
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+
+    >img {
+      height: 100px;
+      width: auto;
+      border-radius: 5px;
+    }
+  }
+
+  .title-year {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+      font-style: italic;
+    }
+  }
+
+  button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    max-height: fit-content;
+
+    >img {
+      width: 32px;
+      height: auto;
+      border-radius: 50%;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+#movie-page {
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    >img {
+      margin: 0 auto;
+      width: 260px;
+      border-radius: 5px;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      strong {
+        font-size: 40px;
+      }
+
+      span {
+        font-style: italic;
+      }
+
+      #movie-rate {
+        font-weight: 500;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+@media (min-width: 700px)  {
+  #movie-page {
+    main {
+      flex-direction: row;
+      gap: 40px;
+    }
+  }
+}

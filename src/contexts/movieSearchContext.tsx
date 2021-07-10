@@ -16,8 +16,8 @@ type MovieSearchProviderType = {
 export const MovieSearchContext = createContext({} as MovieSearchContextType);
 
 export function MovieSearchProvider(props: MovieSearchProviderType) {
-  const [movieSearchList, setMovieSearchList] = useState<Movie[]>([]);
   const [titleInput, setTitleInput] = useState("");
+  const [movieSearchList, setMovieSearchList] = useState<Movie[]>([]);
 
   return (
     <MovieSearchContext.Provider 
@@ -25,7 +25,7 @@ export function MovieSearchProvider(props: MovieSearchProviderType) {
         movieSearchList,
         titleInput,
         setTitleInput,
-        setMovieSearchList
+        setMovieSearchList,
       }}
     >
       {props.children}

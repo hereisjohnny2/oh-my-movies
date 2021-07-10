@@ -1,0 +1,54 @@
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    transition: 200ms;
+
+    >img {
+      height: 30px;
+      width: auto;
+      border-radius: 50%;
+      align-self: center;
+    }
+
+    &:hover {
+      filter: opacity(0.7);
+    }
+  }
+
+  input {
+    max-height: 24px;
+    width: 250px;
+    padding: 12px 12px;
+    background: transparent;
+    border: 2px solid #6f993b;
+    border-radius: 20px;
+    color: #6f993b;
+
+    &::placeholder {
+      font-style: italic;
+      opacity: 0.4;
+    }
+    
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@media (min-width: 700px)  {
+  form {
+    input {
+      width: 500px;
+    }
+  }
+}
