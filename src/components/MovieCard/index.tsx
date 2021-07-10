@@ -12,7 +12,7 @@ export function MovieCard({
   poster_path
 }: MovieCardProps) {
   return <div className="movie-card">
-    <img src={poster_path} alt="movie-poster" />
+    <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt="movie-poster" />
     <div className="basic-info-container">
       <strong>{title}</strong>
       <span>{release_year}</span>

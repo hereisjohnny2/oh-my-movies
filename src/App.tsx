@@ -1,8 +1,11 @@
 import { Home } from "./pages/Home";
+import { MovieSearchProvider } from "./contexts/movieSearchContext";
 
 function App() {
   return (
-    <Home />
+    <MovieSearchProvider>
+      <Home />
+    </MovieSearchProvider>
   );
 }
 
