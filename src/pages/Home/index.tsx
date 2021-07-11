@@ -5,6 +5,8 @@ import { MovieSearchContext } from "../../contexts/movieSearchContext";
 import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/searchMovieByTitle";
 import { LoadingContainer } from "../../components/loadingContainer";
 import { EmptyListContainer } from "../../components/emptyListContainer";
+import { PageNavigationElement } from "../../components/pageNavigationElement";
+
 
 import "./styles.scss";
 
@@ -12,6 +14,7 @@ export function Home() {
   const { 
     movieSearchList, 
     totalPages, 
+    page: currentPage,
     setPage,
     titleInput,
     setMovieSearchList,
@@ -28,9 +31,12 @@ export function Home() {
   const pageNavigationLinkList = [];
   for(let page=1; page <= totalPages; page++) {
     pageNavigationLinkList.push(
-      <button key={page} onClick={() => handleSetPageNumber(page)}>
-        {page}
-      </button>
+      <PageNavigationElement
+        key={page}
+        page={page}
+        isSelected={page === currentPage}
+        onClick={() => handleSetPageNumber(page)}
+      />
     );
   }
 
