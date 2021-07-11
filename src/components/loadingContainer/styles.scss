@@ -1,0 +1,20 @@
+.loading-container {
+  margin: 40px auto;
+  text-align: center;
+
+  >img {
+    width: 128px;
+    height: auto;
+    transition: all 200ms;
+    animation: spin 800ms infinite linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -11,14 +11,17 @@ export function SearchBox() {
     setTitleInput, 
     setMovieSearchList, 
     setTotalPages,
+    setIsLoading
   } = useContext(MovieSearchContext);
   const history = useHistory();
 
   async function handleSearchByTitle(event: FormEvent) {
     event.preventDefault();
     try {
+      setIsLoading(true);
       const { moviesList, total_pages} = await searchMovieByTitleUseCase.execute(titleInput);
       setMovieSearchList(moviesList);
+      setIsLoading(false);
 
       if (total_pages) {
         setTotalPages(total_pages);

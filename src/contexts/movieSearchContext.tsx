@@ -7,10 +7,12 @@ type MovieSearchContextType = {
   titleInput: string,
   totalPages: number,
   page: number,
+  isLoading: boolean,
   setPage(page: number): void,
   setTitleInput(input: string): void,
   setMovieSearchList(movieList: Movie[]): void,
   setTotalPages(totalPages: number): void,
+  setIsLoading(loading: boolean): void,
 }
 
 type MovieSearchProviderType = {
@@ -24,6 +26,7 @@ export function MovieSearchProvider(props: MovieSearchProviderType) {
   const [totalPages, setTotalPages] = useState(1);
   const [movieSearchList, setMovieSearchList] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <MovieSearchContext.Provider 
@@ -32,10 +35,12 @@ export function MovieSearchProvider(props: MovieSearchProviderType) {
         titleInput,
         totalPages,
         page,
+        isLoading,
         setTitleInput,
         setMovieSearchList,
         setTotalPages,
-        setPage
+        setPage,
+        setIsLoading
       }}
     >
       {props.children}

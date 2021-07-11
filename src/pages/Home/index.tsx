@@ -4,6 +4,7 @@ import { Navbar } from "../../components/Navbar";
 import { MovieSearchContext } from "../../contexts/movieSearchContext";
 import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/searchMovieByTitle";
 import MovieImg from "../../assets/movie.svg";
+import { LoadingContainer } from "../../components/loadingContainer";
 
 import "./styles.scss";
 
@@ -13,20 +14,21 @@ export function Home() {
     totalPages, 
     setPage,
     titleInput,
-    setMovieSearchList
+    setMovieSearchList,
+    isLoading,
   } = useContext(MovieSearchContext);
 
   async function handleSetPageNumber(page: number) {
     setPage(page);  
     const { moviesList } = await searchMovieByTitleUseCase.execute(titleInput, page);
     setMovieSearchList(moviesList);  
-    window.scrollTo(0,0)
+    window.scrollTo(0,0);
   }
 
   const pageNavigationLinkList = [];
   for(let page=1; page <= totalPages; page++) {
     pageNavigationLinkList.push(
-      <button onClick={() => handleSetPageNumber(page)}>
+      <button key={page} onClick={() => handleSetPageNumber(page)}>
         {page}
       </button>
     );
@@ -35,32 +37,33 @@ export function Home() {
   return(
     <div id="home-page">
       <Navbar />
-      <main className="main-container">
-        {
-          movieSearchList.length === 0 ? 
-          <div className="empty-list">
-            <img src={MovieImg} alt="movie-theater" />
-            <p>Use the SearchBox to find what to watch next!</p>
-          </div> : 
-          <>{
-            movieSearchList.map(result => <MovieCard
-                id={result.id}
-                key={result.id}
-                title={result.title}
-                release_year={result.release_date.getFullYear().toString()}
-                isFavorite={false}
-                poster_path={result.poster_path}
-              />)
-            }
-            <div className="page-navigation">
-              {pageNavigationLinkList}
-            </div>
-          </>
-        }
-      </main>
-      <footer>
-
-      </footer>
+      {
+        isLoading ? 
+        <LoadingContainer /> : 
+        <main className="main-container">
+          {
+            movieSearchList.length === 0 ? 
+            <div className="empty-list">
+              <img src={MovieImg} alt="movie-theater" />
+              <p>Use the SearchBox to find what to watch next!</p>
+            </div> : 
+            <>{
+              movieSearchList.map(result => <MovieCard
+                  id={result.id}
+                  key={result.id}
+                  title={result.title}
+                  release_year={result.release_date.getFullYear().toString()}
+                  isFavorite={false}
+                  poster_path={result.poster_path}
+                />)
+              }
+              <div className="page-navigation">
+                {pageNavigationLinkList}
+              </div>
+            </>
+          }
+        </main>
+      }
     </div>
   );
 }
