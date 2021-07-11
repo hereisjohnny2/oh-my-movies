@@ -1,4 +1,4 @@
-import { Movie } from "../../entities/Movie";
+import { MovieSearchResponseDTO } from "../../dto/MovieSearchResponseDTO";
 import { IMoviesRepository } from "../../repositories/IMoviesRepository";
 
 class SearchMovieByTitleUseCase {
@@ -6,7 +6,7 @@ class SearchMovieByTitleUseCase {
     private moviesRepository: IMoviesRepository
   ){}
 
-  async execute(title: string, page = 1): Promise<Movie[]> {
+  async execute(title: string, page = 1): Promise<MovieSearchResponseDTO> {
     if(title.trim() === '') {
       throw new Error("It is not possible to search for empty title value");
     }
@@ -17,8 +17,8 @@ class SearchMovieByTitleUseCase {
       );
     }
 
-    const movies = await this.moviesRepository.searchByTitle(title, page);
-    return movies;
+    const movieSearchResponse = await this.moviesRepository.searchByTitle(title, page);
+    return movieSearchResponse;
   }
 }
 

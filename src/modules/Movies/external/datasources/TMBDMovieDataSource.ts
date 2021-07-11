@@ -3,6 +3,7 @@ import { Movie } from "../../domain/entities/Movie";
 import { IMoviesDataSource } from "../../infra/datasources/IMoviesDataSource";
 import { TMDBMovieResult } from "../types/TMDBMovieResult";
 import NoPosterImg from "../../../../assets/no-poster.png";
+import { MovieSearchResponseDTO } from "../../domain/dto/MovieSearchResponseDTO";
 
 class TMDBMoviesDataSource implements IMoviesDataSource {  
   constructor(
@@ -11,7 +12,7 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
 
   api_key = "696d88d8009e5f9ec856621163017e4a";
   
-  async getByTitle(title: string, page: number): Promise<Movie[]> {
+  async getByTitle(title: string, page: number): Promise<MovieSearchResponseDTO> {
     const response = await this.httpService.get("/search/movie", {
       params: {
         api_key: this.api_key,
@@ -26,9 +27,10 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
       throw new Error("There are no movies with this title");
     }    
   
+    const { total_pages } = response.data;
     const moviesResult: TMDBMovieResult[] = response.data.results;
   
-    const movies = moviesResult.map(result => new Movie({
+    const moviesList = moviesResult.map(result => new Movie({
         id: result.id.toString(),
         title: result.title,
         overview: result.overview,
@@ -40,7 +42,10 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
       })
     );
 
-    return movies;
+    return { 
+      moviesList,
+      total_pages
+    };
   }
 
   async getById(id: string): Promise<Movie> {

@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <MovieSearchProvider>
         <Switch>
-          <Route path="/" exact component={Home}/>
+          <Route path="/" exact component={Home} />
           <Route path="/movie/:id" component={MoviePage}/>
         </Switch>
       </MovieSearchProvider>

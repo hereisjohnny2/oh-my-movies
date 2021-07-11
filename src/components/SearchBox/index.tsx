@@ -5,16 +5,25 @@ import SearchImg from "../../assets/search.svg";
 import "./styles.scss";
 import { useHistory } from "react-router-dom";
 
-
 export function SearchBox() {
-  const { titleInput, setTitleInput, setMovieSearchList } = useContext(MovieSearchContext);
+  const { 
+    titleInput, 
+    setTitleInput, 
+    setMovieSearchList, 
+    setTotalPages,
+  } = useContext(MovieSearchContext);
   const history = useHistory();
 
   async function handleSearchByTitle(event: FormEvent) {
     event.preventDefault();
     try {
-      const movies = await searchMovieByTitleUseCase.execute(titleInput);
-      setMovieSearchList(movies);
+      const { moviesList, total_pages} = await searchMovieByTitleUseCase.execute(titleInput);
+      setMovieSearchList(moviesList);
+
+      if (total_pages) {
+        setTotalPages(total_pages);
+      }
+
       history.push("/");
     } catch (error) {
       alert(error);
