@@ -3,8 +3,8 @@ import { MovieCard } from "../../components/MovieCard";
 import { Navbar } from "../../components/Navbar";
 import { MovieSearchContext } from "../../contexts/movieSearchContext";
 import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/searchMovieByTitle";
-import MovieImg from "../../assets/movie.svg";
 import { LoadingContainer } from "../../components/loadingContainer";
+import { EmptyListContainer } from "../../components/emptyListContainer";
 
 import "./styles.scss";
 
@@ -43,10 +43,7 @@ export function Home() {
         <main className="main-container">
           {
             movieSearchList.length === 0 ? 
-            <div className="empty-list">
-              <img src={MovieImg} alt="movie-theater" />
-              <p>Use the SearchBox to find what to watch next!</p>
-            </div> : 
+            <EmptyListContainer /> : 
             <>{
               movieSearchList.map(result => <MovieCard
                   id={result.id}
