@@ -2,6 +2,7 @@ import { SearchBox } from "../SearchBox";
 import LogoImg from "../../assets/logo.svg";
 import PersonImg from "../../assets/person.svg";
 
+
 import "./styles.scss";
 
 export function Navbar() {
