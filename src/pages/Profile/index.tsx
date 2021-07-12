@@ -1,6 +1,7 @@
 import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../hooks/useAuth";
 import { MoviesList } from "../../components/MoviesList";
+import { LoadingContainer } from "../../components/loadingContainer";
 
 import "./styles.scss"
 
@@ -12,7 +13,7 @@ export function Profile() {
       <Navbar />
       <main>
         {
-        user &&
+        user ?
         <>
           <div className="user-info">
             <img src={user.avatar_img} alt="" />
@@ -27,7 +28,8 @@ export function Profile() {
             title="Watch Later"
             movies={user.watchLaterMovies}
           />
-        </>
+        </> :
+        <LoadingContainer />
         }  
       </main> 
     </div>
