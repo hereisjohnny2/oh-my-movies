@@ -33,10 +33,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         id: uid,
         name: displayName,
         avatar_img: photoURL,
-      });     
-      
-      console.log(dbUser);
-      
+      });      
 
       setUser(dbUser);
     }

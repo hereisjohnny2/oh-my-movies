@@ -1,0 +1,46 @@
+#page-auth {
+  height: 100vh;
+
+  main {
+    padding: 32px;
+    background-color: #272626;
+    min-height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    
+    >p {
+      color: #6f993b;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    button {
+      height: 50px;
+      border-radius: 8px;
+      font-weight: 500;
+      background: #ea4335;
+      color: #FFF;
+      padding: 24px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      cursor: pointer;
+      border: 0;
+
+      transition: 0.2s;
+
+      img {
+        margin-right: 8px
+      }
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}

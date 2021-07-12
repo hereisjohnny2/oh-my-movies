@@ -15,12 +15,12 @@ export function Auth() {
   return (
     <div id="page-auth">
       <main>
-      <img src={LogoImg} alt="logo" />
-
-      <button onClick={handleSignInWithGoogle} className="createRoom">
-        <img src={GoogleIconImg} alt="google-icon" />
-        Crie sua sala com o Google
-      </button>
+        <img src={LogoImg} alt="logo" />
+        <p>Find what to watch next!</p>
+        <button onClick={handleSignInWithGoogle} className="createRoom">
+          <img src={GoogleIconImg} alt="google-icon" />
+          Login with Google
+        </button>
       </main>
     </div>
   );
