@@ -2,10 +2,10 @@ import { ICreateUserDTO } from "../../domain/dtos/ICreateUserDTO";
 import { User } from "../../domain/entities/User";
 import { IUsersDataSource } from "../../infra/datasources/IUsersDataSources";
 import { db } from "../../../../shared/Firebase";
-import { firestore } from "firebase-admin"
+import { firebase } from "../../../../shared/Firebase";
 
 class FirebaseUsersDataSource implements IUsersDataSource {
-  private colRef: firestore.CollectionReference<firestore.DocumentData>
+  private colRef: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>
 
   constructor() {
     this.colRef = db.collection("users");
@@ -15,26 +15,29 @@ class FirebaseUsersDataSource implements IUsersDataSource {
     id,
     name,
     avatar_img,
-    favoriteMovies,
-    watchLaterMovies,
   }: ICreateUserDTO): Promise<User> {
-    await this.colRef.doc(id).set({
-      name,
-      avatar_img,
-      favoriteMovies,
-      watchLaterMovies,
-    });
+    try {
+      const docRef = this.colRef.doc(id);
+      await docRef.set({
+        name,
+        avatar_img,
+      }, {merge: true});  
+      
+      const docData = await docRef.get();
 
-    const user = new User();
-    Object.assign(user, {
-      id, 
-      name,
-      avatar_img,
-      favoriteMovies,
-      watchLaterMovies,
-    });
+      const user = new User();
+      Object.assign(user, {
+        id, 
+        name,
+        avatar_img,
+        favoriteMovies: docData.data().favoriteMovies || [],
+        watchLaterMovies: docData.data().watchLaterMovies || []
+      });
 
-    return user;
+      return user;
+    } catch (error) {
+      console.log(error);  
+    }
   }
 
   async getUser(userId: string): Promise<User> {

@@ -11,15 +11,11 @@ class CreateUserUseCase {
     id,
     name,
     avatar_img,
-    favoriteMovies,
-    watchLaterMovies
    }: ICreateUserDTO): Promise<User> {
     const user = await this.userRepository.createUser({
       id,
       name,
       avatar_img,
-      favoriteMovies,
-      watchLaterMovies,
     });
 
     return user;

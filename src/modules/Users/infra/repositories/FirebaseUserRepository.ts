@@ -8,8 +8,16 @@ class FirebaseUserRepository implements IUserRepository {
     private usersDataSource: IUsersDataSource
   ) {}
 
-  async createUser(data: ICreateUserDTO): Promise<User> {
-    const user = await this.usersDataSource.create(data);
+  async createUser({
+    id,
+    name,
+    avatar_img
+  }: ICreateUserDTO): Promise<User> {
+    const user = await this.usersDataSource.create({
+      id,
+      name,
+      avatar_img,
+    });
     return user;
   }
 
