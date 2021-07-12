@@ -2,14 +2,18 @@ import "./styles.scss";
 import GoogleIconImg from "../../assets/google-icon.svg";
 import LogoImg from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 export function Auth() {
   const { user, signInWithGoogle } = useAuth();
+  const history = useHistory();
 
   async function handleSignInWithGoogle() {
     if (!user) {
       await signInWithGoogle();
     }
+
+    history.push("/");
   }
 
   return (
