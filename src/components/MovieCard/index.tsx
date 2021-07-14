@@ -1,9 +1,14 @@
 import "./styles.scss";
+
 import EmptyStarImg from "../../assets/empty-star.svg";
 import FillStarImg from "../../assets/fill-star.svg";
+import EmptyAddImg from "../../assets/empty-add.svg";
+import FillAddImg from "../../assets/fill-add.svg";
+
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { favoriteMovieUseCase } from "../../modules/Users/domain/useCases/favoriteMovieUseCase";
+import { addMovieToWatchLaterListUseCase } from "../../modules/Users/domain/useCases/addMovieToWatchLaterUseCase";
 import { useState } from "react";
 
 interface MovieCardProps {
@@ -11,7 +16,10 @@ interface MovieCardProps {
   title: string;
   poster_path?: string;
   release_year: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
+  watchLater?: boolean;
+  showFavorite?: boolean;
+  showWatchLater?: boolean;
 }
 
 export function MovieCard({
@@ -19,28 +27,54 @@ export function MovieCard({
   title,
   release_year,
   isFavorite,
-  poster_path
+  poster_path,
+  watchLater,
+  showFavorite = true,
+  showWatchLater = true  
 }: MovieCardProps) {
   const history = useHistory();
-  const { user, setFavoriteList } = useAuth();
+  const { user, setFavoriteList, setWatchLaterList } = useAuth();
   const [favorite, setFavorite] = useState(isFavorite);
+  const [addToWatch, setAddToWatch] = useState(watchLater);
 
   async function handleShowMovieInfoPage() {
     history.push(`/movie/${id}`);
   }
 
   async function handleFavoriteMovie() {
-    let newFavoriteMovies: string[];
-    if (favorite) {
-      newFavoriteMovies = user.favoriteMovies.filter(movie => movie !== id);
-      setFavorite(false);
+    if (user) {
+      let newFavoriteMovies: string[];
+      if (favorite) {
+        newFavoriteMovies = user.favoriteMovies.filter(movie => movie !== id);
+        setFavorite(false);
+      } else {
+        newFavoriteMovies = user.favoriteMovies;
+        newFavoriteMovies.push(id);
+        setFavorite(true);
+      }
+      await favoriteMovieUseCase.execute(user.id, newFavoriteMovies);
+      setFavoriteList(newFavoriteMovies);
     } else {
-      newFavoriteMovies = user.favoriteMovies;
-      newFavoriteMovies.push(id);
-      setFavorite(true);
+      alert("You should login first!");
     }
-    await favoriteMovieUseCase.execute(user.id, newFavoriteMovies);
-    setFavoriteList(newFavoriteMovies);
+  }
+
+  async function handleWatchLaterMovie() {
+    if(user) {
+      let newWatchLaterMovies: string[];
+      if (addToWatch) {
+        newWatchLaterMovies = user.watchLaterMovies.filter(movie => movie !== id);
+        setAddToWatch(false);
+      } else {
+        newWatchLaterMovies = user.watchLaterMovies;
+        newWatchLaterMovies.push(id);
+        setAddToWatch(true);
+      }
+      await addMovieToWatchLaterListUseCase.execute(user.id, newWatchLaterMovies);
+      setWatchLaterList(newWatchLaterMovies);
+    } else {
+      alert("You should login first!");
+    }
   }
 
   return <div className="movie-card">
@@ -51,12 +85,27 @@ export function MovieCard({
         <span>{release_year}</span>
       </div>
     </div>
-    <button onClick={handleFavoriteMovie}>
+    <div>
       {
-        favorite ?
-          <img src={FillStarImg} alt="star-movie" /> :
-          <img src={EmptyStarImg} alt="star-movie" />
+        showWatchLater &&
+        <button onClick={handleWatchLaterMovie}>
+          {
+            watchLater ?
+              <img src={FillAddImg} alt="star-movie" /> :
+              <img src={EmptyAddImg} alt="star-movie" />
+          }
+        </button>
       }
-    </button>
+      {
+        showFavorite && 
+        <button onClick={handleFavoriteMovie}>
+          {
+            favorite ?
+              <img src={FillStarImg} alt="star-movie" /> :
+              <img src={EmptyStarImg} alt="star-movie" />
+          }
+        </button>
+      }
+    </div>
   </div>;
 }

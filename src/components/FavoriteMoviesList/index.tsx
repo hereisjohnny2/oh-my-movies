@@ -3,18 +3,12 @@ import { MovieCard } from "../MovieCard";
 import { useFavoriteMovies } from "../../hooks/useFavoriteMovies";
 import { LoadingContainer } from "../loadingContainer";
 
-type MoviesListPropsType = {
-  title: string,
-  movies: string[],
-}
-
-export function MoviesList({ title, movies }: MoviesListPropsType) {
+export function FavoriteMoviesList() {
   const { favoriteMovies } = useFavoriteMovies();  
-
 
   return (
     <div className="movies-list">
-      <h3>{title}</h3>
+      <h3>Favorite Movies</h3>
       <div className="movies">
         {
           favoriteMovies ? 
@@ -27,6 +21,7 @@ export function MoviesList({ title, movies }: MoviesListPropsType) {
                 title={movie.title}
                 poster_path={movie.poster_path}
                 isFavorite
+                showWatchLater={false}
               />
             );
           }) : 

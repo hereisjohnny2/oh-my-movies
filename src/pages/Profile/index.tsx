@@ -1,6 +1,7 @@
 import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../hooks/useAuth";
-import { MoviesList } from "../../components/MoviesList";
+import { FavoriteMoviesList } from "../../components/FavoriteMoviesList";
+import { WatchLaterMoviesList } from "../../components/WatchLaterMoviesList";
 import { LoadingContainer } from "../../components/loadingContainer";
 
 import "./styles.scss"
@@ -20,10 +21,8 @@ export function Profile() {
             <strong>{user.name}</strong> 
             <span>id: {user.id}</span>         
           </div>
-          <MoviesList
-            title="Favorite Movies"
-            movies={user.favoriteMovies}
-          />
+          <FavoriteMoviesList />
+          <WatchLaterMoviesList />
         </> :
         <LoadingContainer />
         }  

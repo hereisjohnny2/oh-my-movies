@@ -9,6 +9,7 @@ type AuthContextType = {
   user: User | undefined,
   signInWithGoogle(): Promise<void>,
   setFavoriteList(newFavoritesList: string[]): Promise<void>
+  setWatchLaterList(newWatchLaterList: string[]): Promise<void>
 }
 
 type AuthContextProviderProps = {
@@ -73,12 +74,17 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     setUser({...user, favoriteMovies: newFavoritesList});
   }
 
+  async function setWatchLaterList(newWatchLaterList: string[]): Promise<void> {
+    setUser({...user, watchLaterMovies: newWatchLaterList});
+  }
+
   return (
     <AuthContext.Provider 
       value={{
         user,
         signInWithGoogle,
         setFavoriteList,
+        setWatchLaterList,
       }}
     >
       {props.children}

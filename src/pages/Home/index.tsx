@@ -60,9 +60,16 @@ export function Home() {
                   title={result.title}
                   release_year={result.release_date.getFullYear().toString()}
                   isFavorite={
-                    user.favoriteMovies.some(movie => movie === result.id)
+                    user ?
+                    user.favoriteMovies.some(movie => movie === result.id) :
+                    false
                   }
                   poster_path={result.poster_path}
+                  watchLater={
+                    user ? 
+                    user.watchLaterMovies.some(movie => movie === result.id):
+                    false
+                  }
                 />)
               }
               <div className="page-navigation">
