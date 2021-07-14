@@ -9,6 +9,7 @@ import { PageNavigationElement } from "../../components/pageNavigationElement";
 
 
 import "./styles.scss";
+import { useAuth } from "../../hooks/useAuth";
 
 export function Home() {
   const { 
@@ -20,6 +21,8 @@ export function Home() {
     setMovieSearchList,
     isLoading,
   } = useContext(MovieSearchContext);
+
+  const { user } = useAuth();
 
   async function handleSetPageNumber(page: number) {
     setPage(page);  
@@ -56,7 +59,9 @@ export function Home() {
                   key={result.id}
                   title={result.title}
                   release_year={result.release_date.getFullYear().toString()}
-                  isFavorite={false}
+                  isFavorite={
+                    user.favoriteMovies.some(movie => movie === result.id)
+                  }
                   poster_path={result.poster_path}
                 />)
               }

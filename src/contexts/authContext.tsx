@@ -7,7 +7,8 @@ import { firebase, auth } from "../shared/Firebase";
 
 type AuthContextType = {
   user: User | undefined,
-  signInWithGoogle(): Promise<void>
+  signInWithGoogle(): Promise<void>,
+  setFavoriteList(newFavoritesList: string[]): Promise<void>
 }
 
 type AuthContextProviderProps = {
@@ -18,7 +19,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>();
-
+  
   useEffect(() => {
     async function fetchData(uid: string, displayName: string, photoURL: string) {
       const dbUser = await createUserUseCase.execute({
@@ -38,7 +39,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           throw new Error('Missing Information');
         }
 
-        fetchData(uid, displayName, photoURL);       
+        fetchData(uid, displayName, photoURL);
       }
     });
 
@@ -67,12 +68,17 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
       setUser(dbUser);
     }
   }
+  
+  async function setFavoriteList(newFavoritesList: string[]): Promise<void> {
+    setUser({...user, favoriteMovies: newFavoritesList});
+  }
 
   return (
     <AuthContext.Provider 
       value={{
         user,
         signInWithGoogle,
+        setFavoriteList,
       }}
     >
       {props.children}

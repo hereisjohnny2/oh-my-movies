@@ -24,10 +24,6 @@ export function Profile() {
             title="Favorite Movies"
             movies={user.favoriteMovies}
           />
-          <MoviesList 
-            title="Watch Later"
-            movies={user.watchLaterMovies}
-          />
         </> :
         <LoadingContainer />
         }  

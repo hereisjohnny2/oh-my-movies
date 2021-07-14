@@ -74,7 +74,7 @@ class FirebaseUsersDataSource implements IUsersDataSource {
 
     await docRef.set({
       favoriteMovies: moviesList
-    });
+    }, {merge: true});
   }
 
   async setWatchLaterMovie(userId: string, moviesList: string[]): Promise<void> {
@@ -82,7 +82,7 @@ class FirebaseUsersDataSource implements IUsersDataSource {
 
     await docRef.set({
       watchLaterMovies: moviesList
-    });
+    }, {merge: true});
   }
 }
 
