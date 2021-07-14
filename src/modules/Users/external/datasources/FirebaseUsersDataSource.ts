@@ -36,7 +36,7 @@ class FirebaseUsersDataSource implements IUsersDataSource {
 
       return user;
     } catch (error) {
-      console.log(error);  
+      throw new Error(error);
     }
   }
 
