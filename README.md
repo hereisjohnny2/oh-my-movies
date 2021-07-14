@@ -11,7 +11,7 @@ Don't have time to watch right now? No problem! You can save the movies that you
 
 No account registration needed! Just login with your Google Account!
 
-This project is part of the LeoVegas Front-end Challenge. You can watch a video showing how to use the app [here](https://www.youtube.com/watch?v=JnoXehM1VWY). Or maybe you can try it by your self [here]().
+This project is part of the LeoVegas Front-end Challenge. You can watch a video showing how to use the app [here](https://www.youtube.com/watch?v=JnoXehM1VWY). Or maybe you can try it by your self the deployed version [here](https://oh-my-movies-4d032.web.app/).
 
 <h2 align="center">
   <img alt="oh my movies" src=".github/cover.svg" width="512px">
