@@ -15,8 +15,6 @@ export function useFavoriteMovies() {
     
     fetchMovieData(user.id);
   }, [user]);
-
-  console.log(favoriteMovies);  
    
   return { favoriteMovies }
 }
