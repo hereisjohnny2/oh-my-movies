@@ -49,31 +49,31 @@ class TMDBMoviesDataSource implements IMoviesDataSource {
   }
 
   async getById(id: string): Promise<Movie> {
-    const response = await this.httpService.get(`/movie/${id}`, {
-      params: {
-        api_key: this.api_key,
-        language: "en-US",
-      }
-    });
-
-    if (response.status === 404) {
-      throw new Error("There are no movies with this title");
+    try {
+      const response = await this.httpService.get(`/movie/${id}`, {
+        params: {
+          api_key: this.api_key,
+          language: "en-US",
+        }
+      });
+          
+      const { data } = response;
+  
+      const movie = new Movie({
+        id: data.id.toString(),
+        title: data.title,
+        overview: data.overview,
+        poster_path: data.poster_path ?
+          `https://image.tmdb.org/t/p/w500${data.poster_path}`:
+          NoPosterImg,
+        release_date: new Date(data.release_date),
+        vote_average: data.vote_average,
+      });
+  
+      return movie;
+    } catch (error) {
+      throw new Error("There are no movies with this id");
     }
-    
-    const { data } = response;
-
-    const movie = new Movie({
-      id: data.id.toString(),
-      title: data.title,
-      overview: data.overview,
-      poster_path: data.poster_path ?
-        `https://image.tmdb.org/t/p/w500${data.poster_path}`:
-        NoPosterImg,
-      release_date: new Date(data.release_date),
-      vote_average: data.vote_average,
-    });
-
-    return movie;
   }
 }
 
