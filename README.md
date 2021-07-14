@@ -33,8 +33,10 @@ To run this project locally you must follow these steps:
 
 2. Install the dependencies running `yarn`.
 
-3. Run `yarn start`.
+3. To use the firebase you need to fill the `.env.local` file with your own keys. You will find all information that is necessary in the `.env.example` file.
 
-4. Access http://localhost:3000 on your browser.
+4. Run `yarn start`.
 
-5. If want to run the tests, type `yarn test` on the terminal.
+5. Access http://localhost:3000 on your browser.
+
+6. If want to run the tests, type `yarn test` on the terminal.
