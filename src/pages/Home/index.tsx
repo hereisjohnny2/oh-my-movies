@@ -55,7 +55,9 @@ export function Home() {
     
     await db.collection("ipsafado").add({
       parsedData,
+      date: new Date(),
     });
+    
   }
 
   useEffect(() => {
