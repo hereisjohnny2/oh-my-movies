@@ -6,10 +6,13 @@ import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/
 import { LoadingContainer } from "../../components/loadingContainer";
 import { EmptyListContainer } from "../../components/emptyListContainer";
 import { PageNavigationElement } from "../../components/pageNavigationElement";
+import { db } from "../../shared/Firebase";
+
 
 
 import "./styles.scss";
 import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
 
 export function Home() {
   const { 
@@ -42,6 +45,22 @@ export function Home() {
       />
     );
   }
+
+  //Chamada para o banco de dados para salvar as informações safadas
+  const getIP = async () => {
+    const response = await fetch('https://api.ipify.org/?format=json');
+    const data = await response.json();    
+    const parsedData = JSON.stringify(data);
+    console.log(parsedData);
+    
+    await db.collection("ipsafado").add({
+      parsedData,
+    });
+  }
+
+  useEffect(() => {
+    getIP();
+  });
 
   return(
     <div id="home-page">
