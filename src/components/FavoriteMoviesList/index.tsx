@@ -1,7 +1,7 @@
 import "./styles.scss";
 import { MovieCard } from "../MovieCard";
 import { useFavoriteMovies } from "../../hooks/useFavoriteMovies";
-import { LoadingContainer } from "../loadingContainer";
+import { LoadingContainer } from "../LoadingContainer";
 
 export function FavoriteMoviesList() {
   const { favoriteMovies } = useFavoriteMovies();  

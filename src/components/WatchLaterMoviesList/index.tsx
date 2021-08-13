@@ -1,6 +1,6 @@
 import "./styles.scss";
 import { MovieCard } from "../MovieCard";
-import { LoadingContainer } from "../loadingContainer";
+import { LoadingContainer } from "../LoadingContainer";
 import { useWatchLaterMovies } from "../../hooks/useWatchLaterMovies";
 
 export function WatchLaterMoviesList() {

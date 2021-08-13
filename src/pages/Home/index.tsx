@@ -3,9 +3,9 @@ import { MovieCard } from "../../components/MovieCard";
 import { Navbar } from "../../components/Navbar";
 import { MovieSearchContext } from "../../contexts/movieSearchContext";
 import { searchMovieByTitleUseCase } from "../../modules/Movies/domain/useCases/searchMovieByTitle";
-import { LoadingContainer } from "../../components/loadingContainer";
-import { EmptyListContainer } from "../../components/emptyListContainer";
-import { PageNavigationElement } from "../../components/pageNavigationElement";
+import { LoadingContainer } from "../../components/LoadingContainer";
+import { EmptyListContainer } from "../../components/EmptyListContainer";
+import { PageNavigationElement } from "../../components/PageNavigationElement";
 
 
 import "./styles.scss";

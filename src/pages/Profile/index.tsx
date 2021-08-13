@@ -2,7 +2,7 @@ import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../hooks/useAuth";
 import { FavoriteMoviesList } from "../../components/FavoriteMoviesList";
 import { WatchLaterMoviesList } from "../../components/WatchLaterMoviesList";
-import { LoadingContainer } from "../../components/loadingContainer";
+import { LoadingContainer } from "../../components/LoadingContainer";
 
 import "./styles.scss"
 

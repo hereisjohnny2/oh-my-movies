@@ -1,5 +1,5 @@
 import { Navbar } from "../../components/Navbar";
-import { LoadingContainer } from "../../components/loadingContainer";
+import { LoadingContainer } from "../../components/LoadingContainer";
 import { useParams } from "react-router-dom";
 import { useMovie } from "../../hooks/useMovie";
 
