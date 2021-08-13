@@ -1,4 +1,4 @@
-import TMDBApi from "../../../../shared/TMDBApi";
+import TMDBApi from "../../../../services/TMDBApi";
 import { TMDBMoviesDataSource } from "./TMBDMovieDataSource";
 
 describe("TMDB API", () => {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createContext, ReactNode } from "react";
 import { User } from "../modules/Users/domain/entities/User";
 import { createUserUseCase } from "../modules/Users/domain/useCases/createUserUseCase";
-import { firebase, auth } from "../shared/Firebase";
+import { firebase, auth } from "../services/Firebase";
 
 type AuthContextType = {
   user: User | undefined,

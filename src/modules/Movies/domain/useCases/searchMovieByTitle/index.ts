@@ -1,4 +1,4 @@
-import TMDBApi from "../../../../../shared/TMDBApi";
+import TMDBApi from "../../../../../services/TMDBApi";
 import { TMDBMoviesDataSource } from "../../../external/datasources/TMBDMovieDataSource";
 import { TMDBMoviesRepository } from "../../../infra/repositories/TMDBMoviesRepository";
 import { SearchMovieByTitleUseCase } from "./SearchMovieByTitleUseCase";

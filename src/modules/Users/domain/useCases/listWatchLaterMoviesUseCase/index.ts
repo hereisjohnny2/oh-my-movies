@@ -1,7 +1,7 @@
 import { FirebaseUsersDataSource } from "../../../external/datasources/FirebaseUsersDataSource";
 import { FirebaseUserRepository } from "../../../infra/repositories/FirebaseUserRepository";
 
-import TMDBApi from "../../../../../shared/TMDBApi";
+import TMDBApi from "../../../../../services/TMDBApi";
 import { TMDBMoviesDataSource } from "../../../../Movies/external/datasources/TMBDMovieDataSource";
 import { TMDBMoviesRepository } from "../../../../Movies/infra/repositories/TMDBMoviesRepository";
 import { ListWatchLaterMoviesUseCase } from "./listWatchLaterMovies";

@@ -1,8 +1,8 @@
 import { ICreateUserDTO } from "../../domain/dtos/ICreateUserDTO";
 import { User } from "../../domain/entities/User";
 import { IUsersDataSource } from "../../infra/datasources/IUsersDataSources";
-import { db } from "../../../../shared/Firebase";
-import { firebase } from "../../../../shared/Firebase";
+import { db } from "../../../../services/Firebase";
+import { firebase } from "../../../../services/Firebase";
 
 class FirebaseUsersDataSource implements IUsersDataSource {
   private colRef: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>
